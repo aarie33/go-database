@@ -217,3 +217,38 @@ func TestPrepareStatement(t *testing.T) {
 		fmt.Println("Success insert new category with id", id)
 	}
 }
+
+func TestTransaction(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	script := "INSERT INTO categories (name, description) VALUES (?, ?)"
+	// do transaction
+	for i := 0; i < 10; i++ {
+		name := "Kategori mantaps " + strconv.Itoa(i)
+		description := "Kategori mantaps description " + strconv.Itoa(i)
+
+		result, err := tx.ExecContext(ctx, script, name, description)
+		if err != nil {
+			panic(err)
+		}
+
+		id, err := result.LastInsertId()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Success insert new category with id", id)
+	}
+
+	// err = tx.Rollback()
+	err = tx.Commit()
+	if err != nil {
+		panic(err)
+	}
+}

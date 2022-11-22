@@ -31,6 +31,8 @@
 Koneksi yg sama pakai parameter berbeda, biar nggak manggil koneksi baru terus. Biar nggak nanya terus ke db pool.
 
 ## Database Transaction
+## Repository Pattern
+To seperate business logic
 
 ## Slide
 <a href="https://docs.google.com/presentation/d/15pvN3L3HTgA9aIMNkm03PzzIwlff0WDE6hOWWut9pg8/edit?usp=sharing" target="_blank">Here</a>
